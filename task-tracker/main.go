@@ -1,9 +1,9 @@
 package main
 
-import "fmt"
-
-const name string = "pelmen"
+import (
+	"fmt"
+)
 
 func main() {
-	fmt.Println(name)
+	fmt.Println(taskFilePath())
 }
