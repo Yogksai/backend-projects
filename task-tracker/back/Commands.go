@@ -69,3 +69,68 @@ func ListTasksFiltered(status string) error {
 	fmt.Println(filteredTasks)
 	return nil
 }
+
+func DeleteTask(id int64) error {
+	tasks, err := ReadFromJSON()
+	if err != nil {
+		return err
+	}
+	var UpdatedSliceOfTasks []Task
+	for _, task := range tasks {
+		if task.ID != id {
+			UpdatedSliceOfTasks = append(UpdatedSliceOfTasks, task)
+		}
+	}
+	if len(UpdatedSliceOfTasks) == len(tasks) {
+		return fmt.Errorf("task not found (ID: %d)", id)
+	}
+
+	fmt.Println("Task was deleted successfully")
+	return WriteToJSON(UpdatedSliceOfTasks)
+}
+
+func UpdateTaskStatus(id int64, status string) error {
+	tasks, err := ReadFromJSON()
+	if err != nil {
+		return err
+	}
+	var TaskExists bool = false
+	var UpdatedSliceOfTasks []Task
+	for _, task := range tasks {
+		if task.ID != id {
+			UpdatedSliceOfTasks = append(UpdatedSliceOfTasks, task)
+		} else {
+			task.Status = status
+			task.UpdatedTime = time.Now()
+			TaskExists = true
+			UpdatedSliceOfTasks = append(UpdatedSliceOfTasks, task)
+		}
+	}
+	if !TaskExists {
+		return fmt.Errorf("Task did not find ID(%d)", id)
+	}
+	return WriteToJSON(UpdatedSliceOfTasks)
+}
+
+func UpdateTaskDescription(id int64, description string) error {
+	tasks, err := ReadFromJSON()
+	if err != nil {
+		return err
+	}
+	var TaskExists bool = false
+	var UpdatedSliceOfTasks []Task
+	for _, task := range tasks {
+		if task.ID != id {
+			UpdatedSliceOfTasks = append(UpdatedSliceOfTasks, task)
+		} else {
+			task.Description = description
+			task.UpdatedTime = time.Now()
+			TaskExists = true
+			UpdatedSliceOfTasks = append(UpdatedSliceOfTasks, task)
+		}
+	}
+	if !TaskExists {
+		return fmt.Errorf("Task did not find ID(%d)", id)
+	}
+	return WriteToJSON(UpdatedSliceOfTasks)
+}

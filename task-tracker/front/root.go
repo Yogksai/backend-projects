@@ -9,5 +9,10 @@ func Root() *cobra.Command {
 	}
 	cmd.AddCommand(AddTaskCLI())
 	cmd.AddCommand(ListTasksCLI())
+	cmd.AddCommand(UpdateTasksCLI())
+	cmd.AddCommand(DeleteTaskCLI())
+	cmd.AddCommand(NewStatusDoneCmd())
+	cmd.AddCommand(NewStatusInProgressCmd())
+	cmd.AddCommand(NewStatusTodoCmd())
 	return cmd
 }
