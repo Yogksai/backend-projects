@@ -5,6 +5,7 @@ git clone https://github.com/arikchakma/backend-projects.git
 cd backend-projects/task-tracker
 
 Забилди, запускай
+
 go build -o task-tracker
 ./task-tracker --help # To see the list of available commands
 
