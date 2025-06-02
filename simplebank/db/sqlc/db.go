@@ -17,14 +17,13 @@ type DBTX interface {
 	QueryRow(context.Context, string, ...interface{}) pgx.Row
 }
 
-type Queries struct {
-	db DBTX
-}
-
 func New(db DBTX) *Queries {
 	return &Queries{db: db}
 }
 
+type Queries struct {
+	db DBTX
+}
 
 func (q *Queries) WithTx(tx pgx.Tx) *Queries {
 	return &Queries{
